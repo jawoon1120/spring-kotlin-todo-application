@@ -1,0 +1,19 @@
+  spring:
+    application:
+      name: todo
+    config:
+      import: optional:file:.env[.properties]
+    datasource:
+      url: jdbc:postgresql://${RDB_HOST}:${RDB_PORT}/${RDB_DB}
+      username: ${RDB_USER}
+      password: ${RDB_PASSWORD}
+      driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # ??? (prod?? none)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
