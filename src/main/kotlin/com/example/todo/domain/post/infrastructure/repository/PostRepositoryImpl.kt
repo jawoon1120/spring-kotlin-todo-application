@@ -2,16 +2,19 @@ package com.example.todo.domain.post.infrastructure.repository
 
 import com.example.todo.domain.post.application.PostRepository
 import com.example.todo.domain.post.domain.PostRootAggregate
+import com.example.todo.domain.post.infrastructure.converter.PostDataMapper
+import com.example.todo.domain.post.infrastructure.entity.PostEntity
 import org.springframework.stereotype.Repository
 
 @Repository
-class PostRepositoryImpl : PostRepository {
-    override fun createPost(post: PostRootAggregate): PostRootAggregate {
-        TODO("Not yet implemented")
-    }
+class PostRepositoryImpl (
+    private val postJpaRepository: PostJpaRepository,
+    private val postDataMapper : PostDataMapper
+): PostRepository {
 
     override fun findAll(): List<PostRootAggregate> {
-        TODO("Not yet implemented")
+        val postEntities : List<PostEntity> = this.postJpaRepository.findAll()
+        return postEntities.map{this.postDataMapper.toAggregate(it)}
     }
 
 }

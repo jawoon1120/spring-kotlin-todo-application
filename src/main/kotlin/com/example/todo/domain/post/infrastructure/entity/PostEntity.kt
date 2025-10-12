@@ -5,14 +5,16 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 @Table(name = "post")
 @EntityListeners(AuditingEntityListener::class)
 class PostEntity (
     @Id
-    @Column(nullable = false, unique = true)
-    var id : Long,
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    val id: UUID? = null,
 
     @Column
     var title: String,
@@ -22,7 +24,7 @@ class PostEntity (
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
-    var createdAt: LocalDateTime? = null,
+    var createdAt: LocalDateTime,
 
     @LastModifiedDate
     @Column(nullable = false)
