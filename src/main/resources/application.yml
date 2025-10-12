@@ -1,19 +1,33 @@
-  spring:
-    application:
-      name: todo
-    config:
-      import: optional:file:.env[.properties]
-    datasource:
-      url: jdbc:postgresql://${RDB_HOST}:${RDB_PORT}/${RDB_DB}
-      username: ${RDB_USER}
-      password: ${RDB_PASSWORD}
-      driver-class-name: org.postgresql.Driver
+spring:
+  application:
+    name: todo
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://${RDB_HOST}:${RDB_PORT}/${RDB_DB}
+    username: ${RDB_USER}
+    password: ${RDB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update   # ??? (prod?? none)
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+      jakarta:
+        persistence:
+          schema-generation:
+            scripts:
+              action: create
+              create-target: build/generated-schema.sql
+            create-source: metadata
+
+      hbm2ddl:
+        schema_generation:
+          script_source: metadata
+          scripts_action: create
+          scripts_create_target: build/generated-schema.sql
+
     show-sql: true
