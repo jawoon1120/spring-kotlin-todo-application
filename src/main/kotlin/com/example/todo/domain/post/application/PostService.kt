@@ -11,4 +11,10 @@ class PostService(
         return this.postRepository.findAll()
     }
 
+    fun addPost(title : String, content : String): PostRootAggregate {
+
+        val post = PostRootAggregate.create(title, content )
+        return this.postRepository.addPost(post)
+    }
+
 }
