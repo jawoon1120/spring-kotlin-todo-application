@@ -16,18 +16,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-      jakarta:
-        persistence:
-          schema-generation:
-            scripts:
-              action: create
-              create-target: build/generated-schema.sql
-            create-source: metadata
-      hbm2ddl:
-        schema_generation:
-          script_source: metadata
-          scripts_action: create
-          scripts_create_target: build/generated-schema.sql
     show-sql: true
 
   flyway:
